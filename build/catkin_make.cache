@@ -1,0 +1,2 @@
+shipbot:shipbot_localization:shipbot_navigation:shipbot_perception
+-DCATKIN_DEVEL_PREFIX=/app/devel -DCMAKE_INSTALL_PREFIX=/app/install -G Unix Makefiles

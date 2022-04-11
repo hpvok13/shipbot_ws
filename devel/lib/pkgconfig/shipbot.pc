@@ -1,0 +1,8 @@
+prefix=/home/theseus/shipbot_ws/devel
+
+Name: shipbot
+Description: Description of shipbot
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
