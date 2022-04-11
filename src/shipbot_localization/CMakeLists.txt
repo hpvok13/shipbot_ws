@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   ydlidar_ros_driver
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
