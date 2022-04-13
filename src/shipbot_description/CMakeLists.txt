@@ -2,7 +2,7 @@
 # Set minimum required version of cmake, project name and compile options
 ################################################################################
 cmake_minimum_required(VERSION 3.0.2)
-project(turtlebot3_description)
+project(shipbot_description)
 
 ################################################################################
 # Find catkin packages and libraries for catkin and system dependencies
@@ -41,7 +41,7 @@ include_directories(
 ################################################################################
 # Install
 ################################################################################
-install(DIRECTORY meshes rviz urdf
+install(DIRECTORY rviz urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
