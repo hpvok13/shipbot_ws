@@ -1,0 +1,8 @@
+prefix=/home/valmiki/shipbot_ws/build/devel
+
+Name: shipbot_navigation
+Description: Description of shipbot_navigation
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
