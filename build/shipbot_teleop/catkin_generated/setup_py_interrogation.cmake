@@ -1,0 +1,7 @@
+set(shipbot_teleop_SETUP_PY_SETUP_MODULE "distutils.core")
+set(shipbot_teleop_SETUP_PY_VERSION "0.0.0")
+set(shipbot_teleop_SETUP_PY_SCRIPTS "")
+set(shipbot_teleop_SETUP_PY_PACKAGES "shipbot_teleop")
+set(shipbot_teleop_SETUP_PY_PACKAGE_DIRS "src/shipbot_teleop")
+set(shipbot_teleop_SETUP_PY_MODULES "")
+set(shipbot_teleop_SETUP_PY_MODULE_DIRS "")

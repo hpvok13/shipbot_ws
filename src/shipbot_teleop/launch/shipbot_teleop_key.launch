@@ -1,0 +1,5 @@
+<launch>
+  <!-- shipbot_teleop_key already has its own built in velocity smoother -->
+  <node pkg="shipbot_teleop" type="shipbot_teleop_key" name="shipbot_teleop_keyboard"  output="screen">
+  </node>
+</launch>

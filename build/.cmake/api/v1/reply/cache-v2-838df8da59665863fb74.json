@@ -38,6 +38,18 @@
 			"value" : ""
 		},
 		{
+			"name" : "CATKIN_DEVEL_PREFIX",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "catkin devel space"
+				}
+			],
+			"type" : "PATH",
+			"value" : "/home/valmiki/shipbot_ws/devel"
+		},
+		{
 			"name" : "CATKIN_ENABLE_TESTING",
 			"properties" : 
 			[
@@ -955,7 +967,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/usr/local"
+			"value" : "/home/valmiki/shipbot_ws/install"
 		},
 		{
 			"name" : "CMAKE_INSTALL_RUNSTATEDIR",
@@ -1171,7 +1183,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "9"
+			"value" : "10"
 		},
 		{
 			"name" : "CMAKE_OBJCOPY",
@@ -2071,7 +2083,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/local"
+			"value" : "/home/valmiki/shipbot_ws/install"
 		},
 		{
 			"name" : "_gmock_INCLUDES",
@@ -2660,6 +2672,30 @@
 			],
 			"type" : "STATIC",
 			"value" : "/home/valmiki/shipbot_ws/src/shipbot_perception"
+		},
+		{
+			"name" : "shipbot_teleop_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/valmiki/shipbot_ws/build/shipbot_teleop"
+		},
+		{
+			"name" : "shipbot_teleop_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/valmiki/shipbot_ws/src/shipbot_teleop"
 		},
 		{
 			"name" : "std_msgs_DIR",

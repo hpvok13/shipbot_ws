@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/valmiki/shipbot_ws/build/devel/setup.sh
+    local-name: /home/valmiki/shipbot_ws/devel/setup.sh

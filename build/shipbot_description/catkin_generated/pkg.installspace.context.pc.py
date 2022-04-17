@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "urdf;xacro".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "shipbot_description"
-PROJECT_SPACE_DIR = "/usr/local"
+PROJECT_SPACE_DIR = "/home/valmiki/shipbot_ws/install"
 PROJECT_VERSION = "0.0.0"

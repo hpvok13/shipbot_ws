@@ -1,0 +1,12 @@
+<package format="2">
+  <name>shipbot_teleop</name>
+  <version>0.0.0</version>
+  <description>
+    Provides teleoperation using keyboard for Shipbot.
+  </description>
+  <license>BSD</license>
+  <maintainer email="valmiki.kothare.vk@gmail.com">Valmiki Kothare</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>geometry_msgs</depend>
+</package>

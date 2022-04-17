@@ -68,13 +68,13 @@ set(shipbot_perception_CONFIG_INCLUDED TRUE)
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
   set(shipbot_perception_SOURCE_PREFIX /home/valmiki/shipbot_ws/src/shipbot_perception)
-  set(shipbot_perception_DEVEL_PREFIX /home/valmiki/shipbot_ws/build/devel)
+  set(shipbot_perception_DEVEL_PREFIX /home/valmiki/shipbot_ws/devel)
   set(shipbot_perception_INSTALL_PREFIX "")
   set(shipbot_perception_PREFIX ${shipbot_perception_DEVEL_PREFIX})
 else()
   set(shipbot_perception_SOURCE_PREFIX "")
   set(shipbot_perception_DEVEL_PREFIX "")
-  set(shipbot_perception_INSTALL_PREFIX /usr/local)
+  set(shipbot_perception_INSTALL_PREFIX /home/valmiki/shipbot_ws/install)
   set(shipbot_perception_PREFIX ${shipbot_perception_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /usr/local/lib;/opt/ros/noetic/lib)
+    foreach(path /home/valmiki/shipbot_ws/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

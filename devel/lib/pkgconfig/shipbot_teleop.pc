@@ -1,0 +1,8 @@
+prefix=/home/valmiki/shipbot_ws/devel
+
+Name: shipbot_teleop
+Description: Description of shipbot_teleop
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: rospy geometry_msgs

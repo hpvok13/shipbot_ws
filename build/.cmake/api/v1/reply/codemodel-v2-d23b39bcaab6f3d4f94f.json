@@ -13,7 +13,8 @@
 						5,
 						6,
 						7,
-						8
+						8,
+						9
 					],
 					"hasInstallRule" : true,
 					"minimumCMakeVersion" : 
@@ -135,7 +136,7 @@
 					]
 				},
 				{
-					"build" : "shipbot_bringup",
+					"build" : "shipbot_teleop",
 					"hasInstallRule" : true,
 					"minimumCMakeVersion" : 
 					{
@@ -143,14 +144,28 @@
 					},
 					"parentIndex" : 0,
 					"projectIndex" : 7,
-					"source" : "shipbot_bringup",
+					"source" : "shipbot_teleop",
 					"targetIndexes" : 
 					[
 						4,
 						5,
 						6,
 						7,
-						8,
+						8
+					]
+				},
+				{
+					"build" : "shipbot_bringup",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.2"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 8,
+					"source" : "shipbot_bringup",
+					"targetIndexes" : 
+					[
 						24,
 						25,
 						26,
@@ -166,7 +181,7 @@
 						"string" : "3.0.2"
 					},
 					"parentIndex" : 0,
-					"projectIndex" : 8,
+					"projectIndex" : 9,
 					"source" : "shipbot_description",
 					"targetIndexes" : 
 					[
@@ -185,7 +200,8 @@
 						5,
 						6,
 						7,
-						8
+						8,
+						9
 					],
 					"directoryIndexes" : 
 					[
@@ -294,7 +310,7 @@
 					[
 						7
 					],
-					"name" : "shipbot_bringup",
+					"name" : "shipbot_teleop",
 					"parentIndex" : 0,
 					"targetIndexes" : 
 					[
@@ -302,7 +318,18 @@
 						5,
 						6,
 						7,
-						8,
+						8
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						8
+					],
+					"name" : "shipbot_bringup",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
 						24,
 						25,
 						26,
@@ -313,7 +340,7 @@
 				{
 					"directoryIndexes" : 
 					[
-						8
+						9
 					],
 					"name" : "shipbot_description",
 					"parentIndex" : 0,
@@ -355,36 +382,36 @@
 				},
 				{
 					"directoryIndex" : 7,
-					"id" : "geometry_msgs_generate_messages_cpp::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-geometry_msgs_generate_messages_cpp-Debug-6f3489c55ea9d3e54e18.json",
+					"id" : "geometry_msgs_generate_messages_cpp::@e16e7c36069a8b4c657e",
+					"jsonFile" : "target-geometry_msgs_generate_messages_cpp-Debug-08ad3ea790485d730a5a.json",
 					"name" : "geometry_msgs_generate_messages_cpp",
 					"projectIndex" : 7
 				},
 				{
 					"directoryIndex" : 7,
-					"id" : "geometry_msgs_generate_messages_eus::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-geometry_msgs_generate_messages_eus-Debug-b69b85a3935ec6279556.json",
+					"id" : "geometry_msgs_generate_messages_eus::@e16e7c36069a8b4c657e",
+					"jsonFile" : "target-geometry_msgs_generate_messages_eus-Debug-b2ad8dc21f786ee489ac.json",
 					"name" : "geometry_msgs_generate_messages_eus",
 					"projectIndex" : 7
 				},
 				{
 					"directoryIndex" : 7,
-					"id" : "geometry_msgs_generate_messages_lisp::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-geometry_msgs_generate_messages_lisp-Debug-d6231504e63ed0ac502e.json",
+					"id" : "geometry_msgs_generate_messages_lisp::@e16e7c36069a8b4c657e",
+					"jsonFile" : "target-geometry_msgs_generate_messages_lisp-Debug-9e08d4b6551d7bba656d.json",
 					"name" : "geometry_msgs_generate_messages_lisp",
 					"projectIndex" : 7
 				},
 				{
 					"directoryIndex" : 7,
-					"id" : "geometry_msgs_generate_messages_nodejs::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-geometry_msgs_generate_messages_nodejs-Debug-8a22a284a5819dea760a.json",
+					"id" : "geometry_msgs_generate_messages_nodejs::@e16e7c36069a8b4c657e",
+					"jsonFile" : "target-geometry_msgs_generate_messages_nodejs-Debug-bbaf195bf23a16764d05.json",
 					"name" : "geometry_msgs_generate_messages_nodejs",
 					"projectIndex" : 7
 				},
 				{
 					"directoryIndex" : 7,
-					"id" : "geometry_msgs_generate_messages_py::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-geometry_msgs_generate_messages_py-Debug-84e581291bfb56aaba6b.json",
+					"id" : "geometry_msgs_generate_messages_py::@e16e7c36069a8b4c657e",
+					"jsonFile" : "target-geometry_msgs_generate_messages_py-Debug-eb4b2d86867718fcc3b5.json",
 					"name" : "geometry_msgs_generate_messages_py",
 					"projectIndex" : 7
 				},
@@ -494,46 +521,46 @@
 					"projectIndex" : 0
 				},
 				{
-					"directoryIndex" : 7,
+					"directoryIndex" : 8,
 					"id" : "sensor_msgs_generate_messages_cpp::@7b91157ece3a5aa77443",
 					"jsonFile" : "target-sensor_msgs_generate_messages_cpp-Debug-5dd9b5d2fd55df183c40.json",
 					"name" : "sensor_msgs_generate_messages_cpp",
-					"projectIndex" : 7
-				},
-				{
-					"directoryIndex" : 7,
-					"id" : "sensor_msgs_generate_messages_eus::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-sensor_msgs_generate_messages_eus-Debug-4e7c004df4039ca4d3c7.json",
-					"name" : "sensor_msgs_generate_messages_eus",
-					"projectIndex" : 7
-				},
-				{
-					"directoryIndex" : 7,
-					"id" : "sensor_msgs_generate_messages_lisp::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-sensor_msgs_generate_messages_lisp-Debug-a5f12b197483354b416d.json",
-					"name" : "sensor_msgs_generate_messages_lisp",
-					"projectIndex" : 7
-				},
-				{
-					"directoryIndex" : 7,
-					"id" : "sensor_msgs_generate_messages_nodejs::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-sensor_msgs_generate_messages_nodejs-Debug-061994513a3f7698f32a.json",
-					"name" : "sensor_msgs_generate_messages_nodejs",
-					"projectIndex" : 7
-				},
-				{
-					"directoryIndex" : 7,
-					"id" : "sensor_msgs_generate_messages_py::@7b91157ece3a5aa77443",
-					"jsonFile" : "target-sensor_msgs_generate_messages_py-Debug-b367ab18287b43e0f081.json",
-					"name" : "sensor_msgs_generate_messages_py",
-					"projectIndex" : 7
+					"projectIndex" : 8
 				},
 				{
 					"directoryIndex" : 8,
+					"id" : "sensor_msgs_generate_messages_eus::@7b91157ece3a5aa77443",
+					"jsonFile" : "target-sensor_msgs_generate_messages_eus-Debug-4e7c004df4039ca4d3c7.json",
+					"name" : "sensor_msgs_generate_messages_eus",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "sensor_msgs_generate_messages_lisp::@7b91157ece3a5aa77443",
+					"jsonFile" : "target-sensor_msgs_generate_messages_lisp-Debug-a5f12b197483354b416d.json",
+					"name" : "sensor_msgs_generate_messages_lisp",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "sensor_msgs_generate_messages_nodejs::@7b91157ece3a5aa77443",
+					"jsonFile" : "target-sensor_msgs_generate_messages_nodejs-Debug-061994513a3f7698f32a.json",
+					"name" : "sensor_msgs_generate_messages_nodejs",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "sensor_msgs_generate_messages_py::@7b91157ece3a5aa77443",
+					"jsonFile" : "target-sensor_msgs_generate_messages_py-Debug-b367ab18287b43e0f081.json",
+					"name" : "sensor_msgs_generate_messages_py",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 9,
 					"id" : "shipbot_description_xacro_generated_to_devel_space_::@d82aecf45d847a65247c",
 					"jsonFile" : "target-shipbot_description_xacro_generated_to_devel_space_-Debug-097b8345e46ee478433b.json",
 					"name" : "shipbot_description_xacro_generated_to_devel_space_",
-					"projectIndex" : 8
+					"projectIndex" : 9
 				},
 				{
 					"directoryIndex" : 6,

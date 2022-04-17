@@ -1,4 +1,4 @@
-prefix=/usr/local
+prefix=/home/valmiki/shipbot_ws/install
 
 Name: shipbot_bringup
 Description: Description of shipbot_bringup
