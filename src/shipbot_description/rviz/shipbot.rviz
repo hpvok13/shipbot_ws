@@ -118,39 +118,22 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        camera_link:
+        wheel_front_right_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        camera_rgb_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_rgb_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        caster_back_left_link:
+        wheel_front_left_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        caster_back_right_link:
+        wheel_rear_right_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wheel_left_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_right_link:
+        wheel_rear_left_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -172,23 +155,15 @@ Visualization Manager:
           Value: true
         base_scan:
           Value: true
-        camera_link:
+        wheel_front_right_link:
           Value: true
-        camera_rgb_frame:
+        wheel_front_left_link:
           Value: true
-        camera_rgb_optical_frame:
+        wheel_rear_right_link:
           Value: true
-        caster_back_left_link:
-          Value: true
-        caster_back_right_link:
-          Value: true
-        imu_link:
+        wheel_rear_left_link:
           Value: true
         odom:
-          Value: true
-        wheel_left_link:
-          Value: true
-        wheel_right_link:
           Value: true
       Marker Alpha: 1
       Marker Scale: 0.4000000059604645
@@ -202,19 +177,13 @@ Visualization Manager:
             base_link:
               base_scan:
                 {}
-              camera_link:
-                camera_rgb_frame:
-                  camera_rgb_optical_frame:
-                    {}
-              caster_back_left_link:
+              wheel_front_right_link:
                 {}
-              caster_back_right_link:
+              wheel_front_left_link:
                 {}
-              imu_link:
+              wheel_rear_right_link:
                 {}
-              wheel_left_link:
-                {}
-              wheel_right_link:
+              wheel_rear_left_link:
                 {}
       Update Interval: 0
       Value: true

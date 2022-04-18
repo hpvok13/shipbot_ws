@@ -1,10 +1,10 @@
 <launch>
   <!-- Arguments -->
   <arg name="map_file" default="$(find shipbot_navigation)/maps/map.yaml"/>
-  <arg name="open_rviz" default="false"/>
+  <!-- <arg name="open_rviz" default="false"/> -->
 
   <!-- Turtlebot3 -->
-  <include file="$(find shipbot_bringup)/launch/shipbot_remote.launch"/>
+  <!-- <include file="$(find shipbot_bringup)/launch/shipbot_remote.launch"/> -->
 
   <!-- Map server -->
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
@@ -16,8 +16,8 @@
   <include file="$(find shipbot_navigation)/launch/move_base.launch"/>
 
   <!-- rviz -->
-  <group if="$(arg open_rviz)"> 
+  <!-- <group if="$(arg open_rviz)"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
           args="-d $(find shipbot_navigation)/rviz/shipbot_navigation.rviz"/>
-  </group>
+  </group> -->
 </launch>

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
 <robot name="shipbot" xmlns:xacro="http://ros.org/wiki/xacro">
-  <!-- <xacro:arg name="laser_visual"  default="false"/>
-  <xacro:arg name="camera_visual" default="false"/>
+  <xacro:arg name="laser_visual"  default="true"/>
+  <!-- <xacro:arg name="camera_visual" default="false"/>
   <xacro:arg name="imu_visual"    default="false"/> -->
 
   <gazebo reference="base_link">
@@ -26,54 +26,16 @@
   </gazebo>
 
   <gazebo>
-    <plugin name="shipbot_controller" filename="libgazebo_ros_diff_drive.so">
-      <legacyMode>false</legacyMode>
-      <alwaysOn>true</alwaysOn>
+    <plugin name="shipbot_controller" filename="libgazebo_ros_planar_move.so">
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <odometrySource>world</odometrySource>
-      <publishOdomTF>true</publishOdomTF>
+      <odometryRate>20.0</odometryRate>
       <robotBaseFrame>base_footprint</robotBaseFrame>
-      <publishWheelTF>false</publishWheelTF>
-      <publishTf>1</publishTf>
-      <publishWheelJointState>false</publishWheelJointState>
-      <updateRate>10</updateRate>
-      <leftJoint>wheel_front_left_joint</leftJoint>
-      <rightJoint>wheel_front_right_joint</rightJoint>
-      <wheelSeparation>0.1778</wheelSeparation>
-      <wheelDiameter>0.066</wheelDiameter>
-      <wheelAcceleration>0</wheelAcceleration>
-      <wheelTorque>5</wheelTorque>
-      <torque>10</torque>
-      <rosDebugLevel>na</rosDebugLevel>
     </plugin>
   </gazebo>
 
-  <!-- <gazebo>
-    <plugin name="shipbot_controller" filename="libgazebo_ros_mecanum_drive.so">
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>base_footprint</robotBaseFrame>
-      <LeftRear>wheel_rear_left_joint</LeftRear>
-      <LeftFront>wheel_front_left_joint</LeftFront>
-      <RightFront>wheel_front_right_joint</RightFront>
-      <RightRear>wheel_rear_right_joint</RightRear>
-      <odometryRate>30</odometryRate>      
-      <publishWheelTF>true</publishWheelTF>
-      <publishWheelJointState>true</publishWheelJointState>
-      <WheelTorque>1</WheelTorque>
-      <WheelSeparationW>0.1778</WheelSeparationW>
-      <WheelSeparationL>0.1778</WheelSeparationL>
-      <wheelAccel>5</wheelAccel>
-      <wheelDiameter>0.066</wheelDiameter>
-      <publishOdom>true</publishOdom>
-      <isRollerModel>true</isRollerModel>
-    </plugin>
-  </gazebo> -->
-
-  <!-- <gazebo reference="base_scan">
+  <gazebo reference="base_scan">
     <material>Gazebo/FlatBlack</material>
     <sensor type="ray" name="lds_lfcd_sensor">
       <pose>0 0 0 0 0 0</pose>
@@ -84,8 +46,8 @@
           <horizontal>
             <samples>360</samples>
             <resolution>1</resolution>
-            <min_angle>0.0</min_angle>
-            <max_angle>6.28319</max_angle>
+            <min_angle>-1.222</min_angle>
+            <max_angle>1.222</max_angle>
           </horizontal>
         </scan>
         <range>
@@ -104,7 +66,7 @@
         <frameName>base_scan</frameName>
       </plugin>
     </sensor>
-  </gazebo> -->
+  </gazebo>
 
 <!--link : https://www.raspberrypi.org/documentation/hardware/camera/-->
   <!-- <gazebo reference="camera_rgb_frame">

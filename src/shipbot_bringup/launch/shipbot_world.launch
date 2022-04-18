@@ -8,7 +8,7 @@
   <arg name="yaw" default="0"/>
 
   <!-- Launch other relevant files-->
-  <!-- <include file="$(find shipbot_bringup)/launch/shipbot_model.launch"/> -->
+  <include file="$(find shipbot_bringup)/launch/shipbot_model.launch"/>
 
   <!-- World File -->
   <arg name="world_file" default="$(find shipbot_bringup)/worlds/house.world"/>
@@ -24,8 +24,8 @@
   </include>
 
   <!-- Find my robot Description-->
-  <arg name="urdf_file" default="$(find xacro)/xacro --inorder $(find shipbot_description)/urdf/shipbot.urdf.xacro" />
-  <param name="robot_description" command="$(arg urdf_file)" />
+  <!-- <arg name="urdf_file" default="$(find xacro)/xacro $(find shipbot_description)/urdf/shipbot.urdf.xacro" />
+  <param name="robot_description" command="$(arg urdf_file)" /> -->
 
   <!-- Spawn My Robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 

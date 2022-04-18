@@ -10,5 +10,5 @@
     <param name="rate" value="50"/>
   </node>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find shipbot_description)/rviz/shipbot.rviz"/>
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find shipbot_description)/rviz/shipbot.rviz"/> -->
 </launch>
