@@ -1,6 +1,12 @@
 <launch>
-  <!-- <arg name="set_frame_id" default="base_scan"/>
-  <arg name="lds_model" default="$(env LDS_MODEL)" doc="LDS MODEL [LDS-01, LDS-02]"/>
+  <arg name="set_frame_id" default="base_scan"/>
+  <arg name="inverted" default="true"/>
+  <arg name="port" default="/dev/ydlidar"/>
+  <arg name="angle_min" default="-70"/>
+  <arg name="angle_max" default="70"/>
+  <arg name="range_min" default="0.1"/>
+  <arg name="range_max" default="5.0"/>
+  <!-- <arg name="lds_model" default="$(env LDS_MODEL)" doc="LDS MODEL [LDS-01, LDS-02]"/>
 
   <group if = "$(eval lds_model == 'LDS-01')">
     <node pkg="hls_lfcd_lds_driver" type="hlds_laser_publisher" name="turtlebot3_lds" output="screen">
@@ -13,5 +19,13 @@
       <param name="frame_id" value="$(arg set_frame_id)"/>
     </node>
   </group> -->
-  <include file="$(find ydlidar_ros_driver)/launch/X2.launch"/>
+  <include file="$(find ydlidar_ros_driver)/launch/X2.launch">
+    <param name="frame_id" value="$(arg set_frame_id)"/>
+    <param name="inverted" value="$(arg inverted)"/>
+    <param name="port" value="$(arg port)"/>
+    <param name="angle_min" value="$(arg angle_min)"/>
+    <param name="angle_max" value="$(arg angle_max)"/>
+    <param name="range_min" value="$(arg range_min)"/>
+    <param name="range_max" value="$(arg range_max)"/>
+  </node>
 </launch>
