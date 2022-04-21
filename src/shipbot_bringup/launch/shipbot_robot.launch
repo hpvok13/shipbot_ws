@@ -3,13 +3,18 @@
   <!-- <arg name="set_lidar_frame_id" default="base_scan"/> -->
   <!-- <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> -->
 
+  <include file="$(find shipbot_bringup)/launch/shipbot_model.launch"/>
+
   <include file="$(find shipbot_bringup)/launch/shipbot_core.launch">
     <arg name="multi_robot_name" value="$(arg multi_robot_name)"/>
   </include>
+
   <include file="$(find shipbot_bringup)/launch/shipbot_lidar.launch"/>
     <!-- <arg name="set_frame_id" value="$(arg set_lidar_frame_id)"/>
   </include> -->
   <!-- <node pkg="shipbot_bringup" type="shipbot_diagnostics" name="shipbot_diagnostics" output="screen"/> -->
 
   <include file="$(find shipbot_bringup)/launch/shipbot_camera.launch"/>
+
+  <include file="$(find shipbot_navigation)/launch/shipbot_navigation.launch"/>
 </launch>
