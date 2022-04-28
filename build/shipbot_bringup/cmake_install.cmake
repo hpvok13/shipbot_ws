@@ -1,8 +1,8 @@
-# Install script for directory: /home/valmiki/shipbot_ws/src/shipbot_bringup
+# Install script for directory: /shipbot_ws/src/shipbot_bringup
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/valmiki/shipbot_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/shipbot_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
+    set(CMAKE_INSTALL_CONFIG_NAME "")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -38,21 +38,21 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/valmiki/shipbot_ws/build/shipbot_bringup/catkin_generated/installspace/shipbot_bringup.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/shipbot_ws/build/shipbot_bringup/catkin_generated/installspace/shipbot_bringup.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_bringup/cmake" TYPE FILE FILES
-    "/home/valmiki/shipbot_ws/build/shipbot_bringup/catkin_generated/installspace/shipbot_bringupConfig.cmake"
-    "/home/valmiki/shipbot_ws/build/shipbot_bringup/catkin_generated/installspace/shipbot_bringupConfig-version.cmake"
+    "/shipbot_ws/build/shipbot_bringup/catkin_generated/installspace/shipbot_bringupConfig.cmake"
+    "/shipbot_ws/build/shipbot_bringup/catkin_generated/installspace/shipbot_bringupConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_bringup" TYPE FILE FILES "/home/valmiki/shipbot_ws/src/shipbot_bringup/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_bringup" TYPE FILE FILES "/shipbot_ws/src/shipbot_bringup/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_bringup" TYPE DIRECTORY FILES "/home/valmiki/shipbot_ws/src/shipbot_bringup/launch")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_bringup" TYPE DIRECTORY FILES "/shipbot_ws/src/shipbot_bringup/launch")
 endif()
 

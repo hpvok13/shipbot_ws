@@ -1,8 +1,8 @@
-# Install script for directory: /home/valmiki/shipbot_ws/src/shipbot_navigation
+# Install script for directory: /shipbot_ws/src/shipbot_navigation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/valmiki/shipbot_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/shipbot_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
+    set(CMAKE_INSTALL_CONFIG_NAME "")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -38,26 +38,26 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/valmiki/shipbot_ws/build/shipbot_navigation/catkin_generated/installspace/shipbot_navigation.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/shipbot_ws/build/shipbot_navigation/catkin_generated/installspace/shipbot_navigation.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_navigation/cmake" TYPE FILE FILES
-    "/home/valmiki/shipbot_ws/build/shipbot_navigation/catkin_generated/installspace/shipbot_navigationConfig.cmake"
-    "/home/valmiki/shipbot_ws/build/shipbot_navigation/catkin_generated/installspace/shipbot_navigationConfig-version.cmake"
+    "/shipbot_ws/build/shipbot_navigation/catkin_generated/installspace/shipbot_navigationConfig.cmake"
+    "/shipbot_ws/build/shipbot_navigation/catkin_generated/installspace/shipbot_navigationConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_navigation" TYPE FILE FILES "/home/valmiki/shipbot_ws/src/shipbot_navigation/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_navigation" TYPE FILE FILES "/shipbot_ws/src/shipbot_navigation/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_navigation" TYPE DIRECTORY FILES
-    "/home/valmiki/shipbot_ws/src/shipbot_navigation/launch"
-    "/home/valmiki/shipbot_ws/src/shipbot_navigation/maps"
-    "/home/valmiki/shipbot_ws/src/shipbot_navigation/param"
-    "/home/valmiki/shipbot_ws/src/shipbot_navigation/rviz"
+    "/shipbot_ws/src/shipbot_navigation/launch"
+    "/shipbot_ws/src/shipbot_navigation/maps"
+    "/shipbot_ws/src/shipbot_navigation/param"
+    "/shipbot_ws/src/shipbot_navigation/rviz"
     )
 endif()
 

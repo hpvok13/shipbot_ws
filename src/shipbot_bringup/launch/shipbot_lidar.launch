@@ -1,11 +1,15 @@
 <launch>
-  <arg name="set_frame_id" default="base_scan"/>
-  <arg name="inverted" default="true"/>
-  <arg name="port" default="/dev/ydlidar"/>
-  <arg name="angle_min" default="-70"/>
-  <arg name="angle_max" default="70"/>
+  <arg name="frame_id" default="base_scan"/>
+  <arg name="inverted" default="false"/>
+  <arg name="port" default="/dev/ttyUSB0"/>
+  <arg name="angle_min" default="-85"/>
+  <arg name="angle_max" default="85"/>
   <arg name="range_min" default="0.1"/>
-  <arg name="range_max" default="5.0"/>
+  <arg name="range_max" default="10.0"/>
+  <arg name="baudrate" default="115200"/>
+  <arg name="sample_rate" default="3"/>
+  <arg name="reversion" value="true"/>
+  <arg name="frequency" value="10.0"/>
   <!-- <arg name="lds_model" default="$(env LDS_MODEL)" doc="LDS MODEL [LDS-01, LDS-02]"/>
 
   <group if = "$(eval lds_model == 'LDS-01')">
@@ -20,12 +24,16 @@
     </node>
   </group> -->
   <include file="$(find ydlidar_ros_driver)/launch/X2.launch">
-    <param name="frame_id" value="$(arg set_frame_id)"/>
-    <param name="inverted" value="$(arg inverted)"/>
-    <param name="port" value="$(arg port)"/>
-    <param name="angle_min" value="$(arg angle_min)"/>
-    <param name="angle_max" value="$(arg angle_max)"/>
-    <param name="range_min" value="$(arg range_min)"/>
-    <param name="range_max" value="$(arg range_max)"/>
-  </node>
+    <arg name="frame_id" value="$(arg frame_id)"/>
+    <arg name="inverted" value="$(arg inverted)"/>
+    <arg name="port" value="$(arg port)"/>
+    <arg name="angle_min" value="$(arg angle_min)"/>
+    <arg name="angle_max" value="$(arg angle_max)"/>
+    <arg name="range_min" value="$(arg range_min)"/>
+    <arg name="range_max" value="$(arg range_max)"/>
+    <arg name="baudrate" value="$(arg baudrate)"/>
+    <arg name="sample_rate" value="$(arg sample_rate)"/>
+    <arg name="reversion" value="$(arg reversion)"/>
+    <arg name="frequency" value="$(arg frequency)"/>
+  </include>
 </launch>

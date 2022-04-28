@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/valmiki/shipbot_ws/src
+CMAKE_SOURCE_DIR = /shipbot_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/valmiki/shipbot_ws/build
+CMAKE_BINARY_DIR = /shipbot_ws/build
 
 # Utility rule file for std_msgs_generate_messages_py.
 
@@ -63,10 +63,10 @@ shipbot_perception/CMakeFiles/std_msgs_generate_messages_py.dir/build: std_msgs_
 .PHONY : shipbot_perception/CMakeFiles/std_msgs_generate_messages_py.dir/build
 
 shipbot_perception/CMakeFiles/std_msgs_generate_messages_py.dir/clean:
-	cd /home/valmiki/shipbot_ws/build/shipbot_perception && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_py.dir/cmake_clean.cmake
+	cd /shipbot_ws/build/shipbot_perception && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : shipbot_perception/CMakeFiles/std_msgs_generate_messages_py.dir/clean
 
 shipbot_perception/CMakeFiles/std_msgs_generate_messages_py.dir/depend:
-	cd /home/valmiki/shipbot_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/valmiki/shipbot_ws/src /home/valmiki/shipbot_ws/src/shipbot_perception /home/valmiki/shipbot_ws/build /home/valmiki/shipbot_ws/build/shipbot_perception /home/valmiki/shipbot_ws/build/shipbot_perception/CMakeFiles/std_msgs_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /shipbot_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /shipbot_ws/src /shipbot_ws/src/shipbot_perception /shipbot_ws/build /shipbot_ws/build/shipbot_perception /shipbot_ws/build/shipbot_perception/CMakeFiles/std_msgs_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : shipbot_perception/CMakeFiles/std_msgs_generate_messages_py.dir/depend
 

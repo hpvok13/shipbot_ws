@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/valmiki/shipbot_ws/src
+CMAKE_SOURCE_DIR = /shipbot_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/valmiki/shipbot_ws/build
+CMAKE_BINARY_DIR = /shipbot_ws/build
 
 # Utility rule file for sensor_msgs_generate_messages_cpp.
 
@@ -63,10 +63,10 @@ shipbot_bringup/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build: sensor_m
 .PHONY : shipbot_bringup/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
 
 shipbot_bringup/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/clean:
-	cd /home/valmiki/shipbot_ws/build/shipbot_bringup && $(CMAKE_COMMAND) -P CMakeFiles/sensor_msgs_generate_messages_cpp.dir/cmake_clean.cmake
+	cd /shipbot_ws/build/shipbot_bringup && $(CMAKE_COMMAND) -P CMakeFiles/sensor_msgs_generate_messages_cpp.dir/cmake_clean.cmake
 .PHONY : shipbot_bringup/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/clean
 
 shipbot_bringup/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/depend:
-	cd /home/valmiki/shipbot_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/valmiki/shipbot_ws/src /home/valmiki/shipbot_ws/src/shipbot_bringup /home/valmiki/shipbot_ws/build /home/valmiki/shipbot_ws/build/shipbot_bringup /home/valmiki/shipbot_ws/build/shipbot_bringup/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /shipbot_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /shipbot_ws/src /shipbot_ws/src/shipbot_bringup /shipbot_ws/build /shipbot_ws/build/shipbot_bringup /shipbot_ws/build/shipbot_bringup/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : shipbot_bringup/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/depend
 

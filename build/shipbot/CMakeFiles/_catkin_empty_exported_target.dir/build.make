@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/valmiki/shipbot_ws/src
+CMAKE_SOURCE_DIR = /shipbot_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/valmiki/shipbot_ws/build
+CMAKE_BINARY_DIR = /shipbot_ws/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ shipbot/CMakeFiles/_catkin_empty_exported_target.dir/build: _catkin_empty_export
 .PHONY : shipbot/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 shipbot/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/valmiki/shipbot_ws/build/shipbot && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /shipbot_ws/build/shipbot && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : shipbot/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 shipbot/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/valmiki/shipbot_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/valmiki/shipbot_ws/src /home/valmiki/shipbot_ws/src/shipbot /home/valmiki/shipbot_ws/build /home/valmiki/shipbot_ws/build/shipbot /home/valmiki/shipbot_ws/build/shipbot/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /shipbot_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /shipbot_ws/src /shipbot_ws/src/shipbot /shipbot_ws/build /shipbot_ws/build/shipbot /shipbot_ws/build/shipbot/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : shipbot/CMakeFiles/_catkin_empty_exported_target.dir/depend
 

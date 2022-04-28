@@ -1,4 +1,4 @@
-prefix=/home/valmiki/shipbot_ws/devel
+prefix=/shipbot_ws/devel
 
 Name: shipbot_description
 Description: Description of shipbot_description
