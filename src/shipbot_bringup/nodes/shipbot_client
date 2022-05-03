@@ -47,10 +47,6 @@ class DeviceManipulator:
         # y vertical error
         # z valve angle
         self.sub = rospy.Subscriber("/device_pos", Point, self.deviceAlignCallback)
-
-    def newDevice(self, device):
-        self.device = device
-        self.done = False
     
     def deviceAlignCallback(self, data):
         pos = data.data
@@ -85,10 +81,11 @@ class DeviceManipulator:
         self.arm_pub.publish(twist_arm)
         
 
-    def align(self, desired_x, desired_y, desired_z):
+    def manipulate(self, device, desired_x, desired_y, desired_th):
+        self.device = device
         self.desired_x = desired_x
         self.desired_y = desired_y
-        self.desired_z = desired_z
+        self.desired_th = desired_th
 
         self.prev_error_x = 0
         self.prev_error_y = 0
@@ -102,7 +99,7 @@ class DeviceManipulator:
         while not self.done:
             rate.sleep()
         
-        
+
         
         
 
