@@ -1,13 +1,66 @@
 #!/usr/bin/env python
-# license removed for brevity
 
 import rospy
 import actionlib
+import time
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs import PoseStamped, Pose, Point, Quaternion, Twist
 from tf.transformations import quaternion_from_euler
 
 
+class Mission:
+    def __init__(self, station, device, command):
+        self.station = station
+        self.device = device
+        self.command = command
+
+def parser():
+    with open('./Desktop/mission_files/mission_file_5.txt') as f:
+        line = f.readlines()[0]
+    
+    missions = line.split(', ')
+    mission_list = []
+    for mission in missions[:-1]:
+        inputs = mission.split(' ')
+        station = inputs[0][0]
+        device = inputs[0][1:]
+        if device == 'V1':
+            object = 'spigot'
+            command = int(inputs[1])
+        elif device == 'V2':
+            object = 'rotary'
+            command = int(inputs[1])
+        elif device == 'V3':
+            object = 'stopcock'
+            command = int(inputs[1])
+        elif device == 'A' or device == 'B':
+            object = 'breaker'
+            command = inputs[2]
+        mis = Mission(station, object, command)
+        mission_list.append(mis)
+    mission_list.sort(key=lambda x: x.station, reverse=False)
+    comptime = int(missions[-1])
+    
+    mission_list.append(comptime)
+
+    stationDict = {
+        'A':PoseXYT(0, 0, 0),
+        'B':PoseXYT(0, 0, 0),
+        'C':PoseXYT(0, 0, 0),
+        'D':PoseXYT(0, 0, 0),
+        'E':PoseXYT(0, 0, 0),
+        'F':PoseXYT(0, 0, 0),
+        'G':PoseXYT(0, 0, 0),
+    }
+    
+    deviceGoals = []
+    for mission in mission_list[:-1]:
+        device = mission.device
+        state = mission.command
+        pose = stationDict[device]
+        deviceGoals.append(DeviceGoal(device, state, pose))
+
+    return deviceGoals
 
 class PoseXYT:
     def __init__(self, x, y, th):
@@ -26,11 +79,15 @@ class DeviceManipulator:
         self.p_x = 10
         self.i_x = 10
         self.d_x = 10
-        self.p_y = 10
-        self.i_y = 10
-        self.d_y = 10
 
         self.done = False
+
+        self.device_linear_actuator = {
+            'spigot':(0, 0),
+            'rotary':(0, 0),
+            'breaker':(0, 0),
+            'stopcock':(0, 0)
+        }
 
         self.thresh_error = 0.1
 
@@ -50,61 +107,59 @@ class DeviceManipulator:
     
     def deviceAlignCallback(self, data):
         pos = data.data
-        x = pos.x
-        y = pos.y
-        self.th = pos.z
+        error_x = pos.x
+        self.state = pos.z
 
-        error_x = x - self.desired_x
-        error_y = y - self.desired_y
-
-        if self.done or (error_x < self.thresh_error 
-                    and error_y < self.thresh_error):
-            self.done = True
+        if self.doneAlign or error_x < self.thresh_error:
+            self.doneAlign = True
             return
 
+        
         self.sum_error_x = self.sum_error_x + error_x
-        self.sum_error_y = self.sum_error_y + error_y
 
-        derivative_error_x = error_x - self.prev_error_x
-        derivative_error_y = error_y - self.prev_error_y
+        if self.prev_error_x == None or self.prev_error_y == None:
+            derivative_error_x = 0
+        else:
+            derivative_error_x = error_x - self.prev_error_x
 
         self.prev_error_x = error_x
-        self.prev_error_y = error_y
 
         twist_base = Twist()
-        twist_arm = Twist()
 
-        twist_base.y = error_x*self.p_x + self.sum_error_x*self.i_x + derivative_error_x*self.d_x
-        twist_arm.z = error_y*self.p_y + self.sum_error_y*self.i_y + derivative_error_y*self.d_y
+        twist_base.linear.y = error_x*self.p_x + self.sum_error_x*self.i_x + derivative_error_x*self.d_x
 
         self.base_pub.publish(twist_base)
-        self.arm_pub.publish(twist_arm)
         
 
-    def manipulate(self, device, desired_x, desired_y, desired_th):
+    def manipulate(self, device, desired_state):
         self.device = device
-        self.desired_x = desired_x
-        self.desired_y = desired_y
-        self.desired_th = desired_th
+        self.desired_state = desired_state
 
-        self.prev_error_x = 0
-        self.prev_error_y = 0
+        self.prev_error_x = None
 
         self.sum_error_x = 0
-        self.sum_error_y = 0
 
-        self.done = False
+        self.doneAlign = False
 
         rate = rospy.Rate(10)
-        while not self.done:
+        while not self.doneAlign:
             rate.sleep()
         
-
+        point_arm = Point()
+        point_arm.x, point_arm.z = self.device_linear_actuator[device]
+        self.arm_pub.publish(point_arm)
+        time.sleep(3)
+        if device == 'spigot' or device == 'rotary':
+            point_arm.y = self.state
+            self.arm_pub.publish(point_arm)
+            time.sleep(3)
+            point_arm.y = desired_state
+            self.arm_pub.publish(point_arm)
+            time.sleep(3)
         
         
 
 def navigation_client(x, y , th):
-
     client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
     client.wait_for_server()
 
@@ -133,12 +188,12 @@ if __name__ == '__main__':
         rospy.init_node('shipbot_client')
         aligner = DeviceManipulator()
         # Parse commands
-        deviceGoals = []
+        deviceGoals = parser()
         for deviceGoal in deviceGoals:
                 result = navigation_client(deviceGoal.x, deviceGoal.y, deviceGoal.th)
                 if result:
                     rospy.loginfo("Goal execution done!")
-                    
+                    aligner.manipulate(deviceGoal.device)
                 else:
                     rospy.loginfo("Goal execution not complete!")
         

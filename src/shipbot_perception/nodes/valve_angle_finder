@@ -6,12 +6,12 @@ from geometry_msgs.msg import Point
 import matplotlib.pyplot as plt
 import numpy as np
 
-
+ 
 rospy.init_node('angle_finder_node', anonymous=False)
 point = Point()
 pub_x_y_angle = rospy.Publisher('/angle_finder_topic', Point, queue_size = 3)
 
-
+ 
 def valvesAngleFinder(frame_gau_blur, hsv, frame, color, x_center, y_center, r):
     # creates the range of green
     if color == 'green':
@@ -59,7 +59,7 @@ def valvesAngleFinder(frame_gau_blur, hsv, frame, color, x_center, y_center, r):
         else:
             angle = None
     
-    #cv2.imshow('Circular Valve', frame)
+    cv2.imshow('Circular Valve', frame)
     cv2.imshow('white elements', hsv_s_gray)
 
     return x_rec, y_rec, angle
@@ -123,7 +123,7 @@ def valvesFinder(coef, pow, radius, frame, type):
         #depthFinder(blue_range, np.pi*radius**2, np.pi*r**2, coef, pow)
         
     cv2.imshow('Circular Valve', frame)
-    # cv2.imshow('blue elements', blue_s_gray)
+    cv2.imshow('blue elements', blue_s_gray)
 
 
 def leverRect(W, L, frame, type):
@@ -179,8 +179,8 @@ def leverRect(W, L, frame, type):
             print('Orientation:', ori)
             print("Center: ({}, {})".format(x, y))
 
-    cv2.imshow('Lever', frame)
-    cv2.imshow('blue elements', color_s_gray)
+    #cv2.imshow('Lever', frame)
+    #cv2.imshow('blue elements', color_s_gray)
 
 
 # calculates white pixel numbers and convert to depth info
@@ -192,9 +192,9 @@ def depthFinder(area, pix_area, coef, pow):
 
 
 def main():
-    target = 'large valve'
+    target = 'small valve'
 
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     if not cap: print("!!!Failed VideoCapture: invalid camera source!!!")
 
     while(True):
