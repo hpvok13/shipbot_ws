@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find shipbot_bringup)/launch/shipbot_robot.launch"/>
+  <include file="$(find shipbot_navigation)/launch/shipbot_gmapping.launch"/>
+  <node name="rviz" pkg="rviz" type="rviz"
+    args="-d $(find shipbot_navigation)/rviz/shipbot_map.rviz"/>
+</launch>

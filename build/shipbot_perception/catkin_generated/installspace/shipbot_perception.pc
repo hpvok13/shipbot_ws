@@ -1,8 +1,0 @@
-prefix=/home/valmiki/shipbot_ws/install
-
-Name: shipbot_perception
-Description: Description of shipbot_perception
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

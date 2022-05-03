@@ -28,7 +28,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 import rospy
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, Point
 import sys, select, os
 # if os.name == 'nt':
 #   import msvcrt, time
@@ -38,8 +38,22 @@ import tty, termios
 MAX_LIN_VEL = 0.5
 MAX_ANG_VEL = 2.84
 
-LIN_VEL_STEP_SIZE = 0.01
+LIN_VEL_STEP_SIZE = 0.03
 ANG_VEL_STEP_SIZE = 0.1
+
+X_ACT_STEP_SIZE = 0.01
+Z_ACT_STEP_SIZE = 0.01
+
+ANGLE_STEP_SIZE = 10
+
+MIN_Z_ACT_LENGTH = 0.00
+MAX_Z_ACT_LENGTH = 0.08
+MIN_X_ACT_LENGTH = 0.00
+MAX_X_ACT_LENGTH = 0.1
+
+#z = up/down
+#y = stepper control
+#x = forward/backward
 
 msg = """
 Control Your ShipBot!
@@ -51,7 +65,13 @@ Moving around:
 
 w/x : increase/decrease linear x velocity 
 a/d : increase/decrease linear y  velocity
-q/e : increase/decrease
+
+q/e : increase/decrease angular velocity
+
+i/k: raise/lower arm
+u/j: move arm forward/backward
+
+o/p: increase/decrease gripper angle
 
 space key, s : force stop
 
@@ -88,6 +108,9 @@ def getKey():
 def vels(target_linear_vel_x, target_linear_vel_y, target_angular_vel):
     return "currently:\tlinear vel (%s,%s)\t angular vel %s " % (target_linear_vel_x, target_linear_vel_y, target_angular_vel)
 
+def acts(target_x_actuator, target_z_actuator, target_stepper_angle):
+    return "currently:\tx_actuator (%s)\t z_actuator (%s)\t stepper_angle (%s) " % (target_x_actuator, target_z_actuator, target_stepper_angle)
+
 def makeSimpleProfile(output, input, slop):
     if input > output:
         output = min( input, output + slop )
@@ -116,12 +139,25 @@ def checkAngularLimitVelocity(vel):
     vel = constrain(vel, -MAX_ANG_VEL, MAX_ANG_VEL)
     return vel
 
+def check_Z_ActuatorLimit(length):
+    length = constrain(length, MIN_Z_ACT_LENGTH, MAX_Z_ACT_LENGTH)
+    return length
+
+def check_X_ActuatorLimit(length):
+    length = constrain(length, MIN_X_ACT_LENGTH, MAX_X_ACT_LENGTH)
+    return length
+
+def check_stepper_angle(angle):
+    angle = constrain(angle, 0, 360)
+    return angle
+
 if __name__=="__main__":
     # if os.name != 'nt':
     settings = termios.tcgetattr(sys.stdin)
 
     rospy.init_node('shipbot_teleop')
     pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
+    pub2 = rospy.Publisher('cmd_arm', Point, queue_size=10)
 
     status = 0
     target_linear_vel_x   = 0.0
@@ -131,6 +167,10 @@ if __name__=="__main__":
     control_linear_vel_y  = 0.0
     control_angular_vel   = 0.0
 
+    target_x_actuator = 0.0
+    target_z_actuator = 0.0
+    target_stepper_angle = 0.0
+
     try:
         print(msg)
         while not rospy.is_shutdown():
@@ -139,7 +179,7 @@ if __name__=="__main__":
                 target_linear_vel_x = checkLinearLimitVelocity(target_linear_vel_x + LIN_VEL_STEP_SIZE)
                 status = status + 1
                 print(vels(target_linear_vel_x, target_linear_vel_y, target_angular_vel))
-            elif key == 'x' :
+            elif key == 's' :
                 target_linear_vel_x = checkLinearLimitVelocity(target_linear_vel_x - LIN_VEL_STEP_SIZE)
                 status = status + 1
                 print(vels(target_linear_vel_x, target_linear_vel_y, target_angular_vel))
@@ -159,14 +199,46 @@ if __name__=="__main__":
                 target_angular_vel = checkAngularLimitVelocity(target_angular_vel + ANG_VEL_STEP_SIZE)
                 status = status + 1
                 print(vels(target_linear_vel_x, target_linear_vel_y, target_angular_vel))
-            elif key == ' ' or key == 's' :
+            elif key == 'i' :
+                target_z_actuator = check_Z_ActuatorLimit(target_z_actuator + Z_ACT_STEP_SIZE)
+                status = status + 1
+                print(acts(target_x_actuator, target_z_actuator, target_stepper_angle))
+            elif key == 'k' :
+                target_z_actuator = check_Z_ActuatorLimit(target_z_actuator - Z_ACT_STEP_SIZE)
+                status = status + 1
+                print(acts(target_x_actuator, target_z_actuator, target_stepper_angle))
+            elif key == 'u' :
+                target_x_actuator = check_X_ActuatorLimit(target_x_actuator + X_ACT_STEP_SIZE)
+                status = status + 1
+                print(acts(target_x_actuator, target_z_actuator, target_stepper_angle))
+            elif key == 'j' :
+                target_x_actuator = check_X_ActuatorLimit(target_x_actuator - X_ACT_STEP_SIZE)
+                status = status + 1
+                print(acts(target_x_actuator, target_z_actuator, target_stepper_angle))
+            elif key == 'o' :
+                target_stepper_angle = check_stepper_angle(target_stepper_angle + ANGLE_STEP_SIZE)
+                status = status + 1
+                print(acts(target_x_actuator, target_z_actuator, target_stepper_angle))
+            elif key == 'p' :
+                target_stepper_angle = check_stepper_angle(target_stepper_angle - ANGLE_STEP_SIZE)
+                status = status + 1
+                print(acts(target_x_actuator, target_z_actuator, target_stepper_angle))
+
+
+            elif key == ' ' or key == 'r' :
                 target_linear_vel_x   = 0.0
                 target_linear_vel_y   = 0.0
                 control_linear_vel_x  = 0.0
                 control_linear_vel_y  = 0.0
                 target_angular_vel  = 0.0
                 control_angular_vel = 0.0
+
+                target_x_actuator = 0.0
+                target_z_actuator = 0.0
+                target_stepper_angle = 0.0
+
                 print(vels(target_linear_vel_x, target_linear_vel_y, target_angular_vel))
+                print(acts(target_x_actuator, target_z_actuator, target_stepper_angle))
             else:
                 if (key == '\x03'):
                     break
@@ -176,6 +248,7 @@ if __name__=="__main__":
                 status = 0
 
             twist = Twist()
+            point = Point()
 
             control_linear_vel_x = makeSimpleProfile(control_linear_vel_x, target_linear_vel_x, (LIN_VEL_STEP_SIZE/2.0))
             control_linear_vel_y = makeSimpleProfile(control_linear_vel_y, target_linear_vel_y, (LIN_VEL_STEP_SIZE/2.0))
@@ -184,7 +257,12 @@ if __name__=="__main__":
             control_angular_vel = makeSimpleProfile(control_angular_vel, target_angular_vel, (ANG_VEL_STEP_SIZE/2.0))
             twist.angular.x = 0.0; twist.angular.y = 0.0; twist.angular.z = control_angular_vel
 
+            point.x = target_x_actuator
+            point.y = target_stepper_angle
+            point.z = target_z_actuator
+
             pub.publish(twist)
+            pub2.publish(point)
 
     except:
         print(e)
@@ -194,6 +272,7 @@ if __name__=="__main__":
         twist.linear.x = 0.0; twist.linear.y = 0.0; twist.linear.z = 0.0
         twist.angular.x = 0.0; twist.angular.y = 0.0; twist.angular.z = 0.0
         pub.publish(twist)
+        pub2.publish(point)
 
     if os.name != 'nt':
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)

@@ -3,13 +3,16 @@
   <!-- <arg name="set_lidar_frame_id" default="base_scan"/> -->
   <!-- <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> -->
 
-  <include file="$(find shipbot_bringup)/launch/shipbot_core.launch">
-    <arg name="multi_robot_name" value="$(arg multi_robot_name)"/>
-  </include>
-  <include file="$(find shipbot_bringup)/launch/shipbot_lidar.launch"/>
-    <!-- <arg name="set_frame_id" value="$(arg set_lidar_frame_id)"/>
-  </include> -->
-  <!-- <node pkg="shipbot_bringup" type="shipbot_diagnostics" name="shipbot_diagnostics" output="screen"/> -->
+  <include file="$(find shipbot_bringup)/launch/shipbot_model.launch"/>
+  <include file="$(find shipbot_bringup)/launch/shipbot_core.launch"/>
+  <node pkg="shipbot_navigation" type="odometry_publisher" name="odometry_publisher" output="screen">
+    <param name="~scale_x" value="0.000372" />
+    <param name="~scale_y" value="0.000375" />
+    <param name="~scale_th" value="0.00168" />
+    <param name="~calibration_mode" value="false" />
+  </node>
 
-  <include file="$(find shipbot_bringup)/launch/shipbot_camera.launch"/>
+  <include file="$(find shipbot_bringup)/launch/shipbot_lidar.launch"/>
+
+  <!-- <include file="$(find shipbot_bringup)/launch/shipbot_camera.launch"/> -->
 </launch>
