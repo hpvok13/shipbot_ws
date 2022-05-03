@@ -38,7 +38,7 @@ import tty, termios
 MAX_LIN_VEL = 0.22
 MAX_ANG_VEL = 2.84
 
-LIN_VEL_STEP_SIZE = 0.01
+LIN_VEL_STEP_SIZE = 0.03
 ANG_VEL_STEP_SIZE = 0.1
 
 X_ACT_STEP_SIZE = 0.01
@@ -49,7 +49,7 @@ ANGLE_STEP_SIZE = 10
 MIN_Z_ACT_LENGTH = 0.00
 MAX_Z_ACT_LENGTH = 0.08
 MIN_X_ACT_LENGTH = 0.00
-MAX_X_ACT_LENGTH = 0.087
+MAX_X_ACT_LENGTH = 0.1
 
 #z = up/down
 #y = stepper control
@@ -179,7 +179,7 @@ if __name__=="__main__":
                 target_linear_vel_x = checkLinearLimitVelocity(target_linear_vel_x + LIN_VEL_STEP_SIZE)
                 status = status + 1
                 print(vels(target_linear_vel_x, target_linear_vel_y, target_angular_vel))
-            elif key == 'x' :
+            elif key == 's' :
                 target_linear_vel_x = checkLinearLimitVelocity(target_linear_vel_x - LIN_VEL_STEP_SIZE)
                 status = status + 1
                 print(vels(target_linear_vel_x, target_linear_vel_y, target_angular_vel))
@@ -225,7 +225,7 @@ if __name__=="__main__":
                 print(acts(target_x_actuator, target_z_actuator, target_stepper_angle))
 
 
-            elif key == ' ' or key == 's' :
+            elif key == ' ' or key == 'r' :
                 target_linear_vel_x   = 0.0
                 target_linear_vel_y   = 0.0
                 control_linear_vel_x  = 0.0

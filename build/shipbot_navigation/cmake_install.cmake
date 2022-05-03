@@ -58,6 +58,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/shipbot_ws/src/shipbot_navigation/maps"
     "/shipbot_ws/src/shipbot_navigation/param"
     "/shipbot_ws/src/shipbot_navigation/rviz"
+    "/shipbot_ws/src/shipbot_navigation/config"
     )
 endif()
 

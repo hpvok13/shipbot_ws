@@ -5,6 +5,13 @@
 
   <include file="$(find shipbot_bringup)/launch/shipbot_model.launch"/>
   <include file="$(find shipbot_bringup)/launch/shipbot_core.launch"/>
+  <node pkg="shipbot_navigation" type="odometry_publisher" name="odometry_publisher" output="screen">
+    <param name="~scale_x" value="0.000372" />
+    <param name="~scale_y" value="0.000375" />
+    <param name="~scale_th" value="0.00168" />
+    <param name="~calibration_mode" value="false" />
+  </node>
+
   <include file="$(find shipbot_bringup)/launch/shipbot_lidar.launch"/>
 
   <!-- <include file="$(find shipbot_bringup)/launch/shipbot_camera.launch"/> -->

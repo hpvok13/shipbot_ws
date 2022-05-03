@@ -1,16 +1,6 @@
 <launch>
-  <!-- Arguments -->
-  <arg name="open_rviz" default="false"/>
-
   <!-- Shipbot -->
-  <include file="$(find shipbot_bringup)/launch/shipbot_world.launch"/>
-
+  <include file="$(find shipbot_bringup)/launch/shipbot_robot.launch"/>
   <!-- Navigation -->
   <include file="$(find shipbot_navigation)/launch/shipbot_navigation.launch"/>
-
-  <!-- rviz -->
-  <group if="$(arg open_rviz)"> 
-    <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(find shipbot_navigation)/rviz/shipbot_navigation.rviz"/>
-  </group>
 </launch>

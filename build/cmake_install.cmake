@@ -132,10 +132,10 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/shipbot_ws/build/gtest/cmake_install.cmake")
   include("/shipbot_ws/build/shipbot/cmake_install.cmake")
-  include("/shipbot_ws/build/shipbot_navigation/cmake_install.cmake")
   include("/shipbot_ws/build/shipbot_perception/cmake_install.cmake")
   include("/shipbot_ws/build/shipbot_teleop/cmake_install.cmake")
   include("/shipbot_ws/build/shipbot_bringup/cmake_install.cmake")
+  include("/shipbot_ws/build/shipbot_navigation/cmake_install.cmake")
   include("/shipbot_ws/build/shipbot_description/cmake_install.cmake")
 
 endif()

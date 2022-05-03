@@ -52,3 +52,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shipbot_perception" TYPE FILE FILES "/shipbot_ws/src/shipbot_perception/package.xml")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/shipbot_perception" TYPE PROGRAM FILES "/shipbot_ws/build/shipbot_perception/catkin_generated/installspace/valve_angle_finder")
+endif()
+
