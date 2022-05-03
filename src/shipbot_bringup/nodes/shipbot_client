@@ -1,0 +1,140 @@
+#!/usr/bin/env python
+# license removed for brevity
+
+import rospy
+import actionlib
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from geometry_msgs import PoseStamped, Pose, Point, Quaternion, Twist
+from tf.transformations import quaternion_from_euler
+
+class PoseXYT:
+    def __init__(self, x, y, th):
+        self.x = x
+        self.y = y
+        self.th = th
+
+class DeviceAligner:
+    def __init__(self):
+        self.p_x = 10
+        self.i_x = 10
+        self.d_x = 10
+        self.p_y = 10
+        self.i_y = 10
+        self.d_y = 10
+        self.p_z = 10
+        self.i_z = 10
+        self.d_z = 10
+
+        self.thresh_error = 0.1
+
+        self.base_pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
+        self.arm_pub = rospy.Publisher('cmd_arm', Twist, queue_size = 1)
+        self.sub = rospy.Subscriber("/device_pos", Point, self.callback)
+    
+    def callback(self, data):
+        pos = data.data
+        x = pos.x
+        y = pos.y
+        z = pos.z
+
+        error_x = x - self.desired_x
+        error_y = y - self.desired_y
+        error_z = z - self.desired_z
+
+        if self.done or (error_x < self.thresh_error 
+                    and error_y < self.thresh_error 
+                    and error_y < self.thresh_error):
+            self.done = True
+            return
+
+        self.sum_error_x = self.sum_error_x + error_x
+        self.sum_error_y = self.sum_error_y + error_y
+        self.sum_error_z = self.sum_error_z + error_z
+
+        derivative_error_x = error_x - self.prev_error_x
+        derivative_error_y = error_y - self.prev_error_y
+        derivative_error_z = error_z - self.prev_error_z
+
+        self.prev_error_x = error_x
+        self.prev_error_y = error_y
+        self.prev_error_z = error_z
+
+        twist_base = Twist()
+        twist_arm = Twist()
+
+        twist_base.y = error_x*self.p_x + self.sum_error_x*self.i_x + derivative_error_x*self.d_x
+        twist_arm.z = error_y*self.p_y + self.sum_error_y*self.i_y + derivative_error_y*self.d_y
+        if error_z > self.thresh_error_z:
+            rospy.loginfo("Arm too far, moving base")
+            twist_base.x = error_z*self.p_z + self.sum_error_z*self.i_z + derivative_error_z*self.d_z
+        else:
+            twist_arm.x = error_z*self.p_z + self.sum_error_z*self.i_z + derivative_error_z*self.d_z
+
+        self.base_pub.publish(twist_base)
+        self.arm_pub.publish(twist_arm)
+        
+
+    def align(self, desired_x, desired_y, desired_z, thresh_error_z):
+        self.desired_x = desired_x
+        self.desired_y = desired_y
+        self.desired_z = desired_z
+        self.thresh_error_z = thresh_error_z
+
+        self.prev_error_x = 0
+        self.prev_error_y = 0
+        self.prev_error_z = 0
+
+        self.sum_error_x = 0
+        self.sum_error_y = 0
+        self.sum_error_z = 0
+
+        self.done = False
+
+        rate = rospy.Rate(10)
+        while not self.done:
+            rate.sleep()
+        
+        
+
+def navigation_client(x, y , th):
+
+    client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+    client.wait_for_server()
+
+    goal = MoveBaseGoal()
+    goal.target_pose.header.frame_id = "map"
+    goal.target_pose.header.stamp = rospy.Time.now()
+
+    position = Point()
+    position.x = x
+    position.y = y
+    position.z = 0
+
+    goal.target_pose.pose.position = position
+    goal.target_pose.pose.orientation = Quaternion(quaternion_from_euler(0, 0, th)) ############
+
+    client.send_goal(goal)
+    wait = client.wait_for_result()
+    if not wait:
+        rospy.logerr("Action server not available!")
+        rospy.signal_shutdown("Action server not available!")
+    else:
+        return client.get_result()
+
+if __name__ == '__main__':
+    try:
+        rospy.init_node('shipbot_client')
+        aligner = DeviceAligner()
+        # Parse commands
+        goal_poses = []
+        for goal_pose in goal_poses:
+                result = navigation_client(goal_pose.x, goal_pose.y, goal_pose.th)
+                if result:
+                    rospy.loginfo("Goal execution done!")
+                else:
+                    rospy.loginfo("Goal execution not complete!")
+        
+
+    except rospy.ROSInterruptException:
+        rospy.loginfo("Client Closed")
+    rospy.loginfo("Navigation Finished")

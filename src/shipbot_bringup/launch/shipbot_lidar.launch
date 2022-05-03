@@ -1,6 +1,6 @@
 <launch>
   <arg name="set_frame_id" default="base_scan"/>
-  <arg name="inverted" default="true"/>
+  <arg name="inverted" default="false"/>
   <arg name="port" default="/dev/ydlidar"/>
   <arg name="angle_min" default="-70"/>
   <arg name="angle_max" default="70"/>

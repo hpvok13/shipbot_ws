@@ -3,10 +3,13 @@
   <arg name="open_rviz" default="false"/>
 
   <!-- Shipbot -->
-  <include file="$(find shipbot_bringup)/launch/shipbot_world.launch"/>
+  <include file="$(find shipbot_bringup)/launch/shipbot_robot.launch"/>
 
   <!-- Navigation -->
   <include file="$(find shipbot_navigation)/launch/shipbot_navigation.launch"/>
+
+  <!-- Control -->
+  <node pkg="shipbot_bringup" type="shipbot_client" name="shipbot_client" output="screen"/>
 
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 

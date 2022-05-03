@@ -35,7 +35,7 @@ import sys, select, os
 # else:
 import tty, termios
 
-MAX_LIN_VEL = 0.22
+MAX_LIN_VEL = 0.5
 MAX_ANG_VEL = 2.84
 
 LIN_VEL_STEP_SIZE = 0.01
