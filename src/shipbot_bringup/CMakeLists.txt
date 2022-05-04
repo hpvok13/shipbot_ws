@@ -11,9 +11,11 @@ add_compile_options(-std=c++11)
 # Find catkin packages and libraries for catkin and system dependencies
 ################################################################################
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  std_msgs
-  sensor_msgs
+  rospy
+  actionlib
+  move_base
+  tf
+  geometry_msgs
   # diagnostic_msgs
   # shipbot_msgs
   # turtlebot3_msgs
@@ -35,7 +37,7 @@ find_package(catkin REQUIRED COMPONENTS
 # Declare catkin specific configuration to be passed to dependent projects
 ################################################################################
 catkin_package(
-  CATKIN_DEPENDS roscpp std_msgs sensor_msgs #diagnostic_msgs turtlebot3_msgs
+  CATKIN_DEPENDS rospy actionlib move_base tf geometry_msgs #diagnostic_msgs turtlebot3_msgs
 )
 
 ################################################################################
@@ -60,6 +62,11 @@ include_directories(
 #   scripts/create_udev_rules
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
+
+catkin_install_python(PROGRAMS
+    nodes/shipbot_client
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}

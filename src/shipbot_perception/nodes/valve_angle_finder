@@ -194,7 +194,7 @@ def depthFinder(area, pix_area, coef, pow):
 def main():
     target = 'small valve'
 
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     if not cap: print("!!!Failed VideoCapture: invalid camera source!!!")
 
     while(True):
@@ -208,52 +208,56 @@ def main():
         # hsv = cv2.merge((h, s, v_cor))
         # frame = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-        norm = np.zeros(frame.shape)
-        frame = cv2.normalize(frame, norm, 0, 255, cv2.NORM_MINMAX)
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        h, s, v = cv2.split(hsv)
+        try:
+            norm = np.zeros(frame.shape)
+            frame = cv2.normalize(frame, norm, 0, 255, cv2.NORM_MINMAX)
+            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            h, s, v = cv2.split(hsv)
 
-        # plt.hist(v_cor.ravel(), 256, [0, 256])
-        # plt.show()
+            # plt.hist(v_cor.ravel(), 256, [0, 256])
+            # plt.show()
 
-        if type(frame) == type(None):
-            print("!!!Couldn't read frame!!!")
+            if type(frame) == type(None):
+                print("!!!Couldn't read frame!!!")
+                break
+
+            if target == 'small valve':
+                coef = 2951.8
+                pow = -0.608
+                radius = 2.25
+                valvesFinder(coef, pow, radius, frame, target)
+            elif target == 'large valve': 
+                coef = 3025.7
+                pow = -0.617
+                radius = 5
+                valvesFinder(coef, pow, radius, frame, target)
+            elif target == "lever": 
+                coef = 1034.7
+                pow = -0.548
+                W = 1.6
+                L = 5.6
+                leverRect(W, L, frame, target)
+            elif target == "small switch":
+                coef = 1934.7
+                pow = -0.548
+                W = 7.8
+                L = 14
+                leverRect(W, L, frame, target)
+            elif target == "large switch":
+                coef = 1934.7
+                pow = -0.548
+                W = 10.0
+                L = 37.1
+                leverRect(W, L, frame, target)
+            else:
+                print("!!!Wrong Target!!!")
+                break
+
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord("q"): break
+        except:
+            print("MET AN ERROR")
             break
-
-        if target == 'small valve':
-            coef = 2951.8
-            pow = -0.608
-            radius = 2.25
-            valvesFinder(coef, pow, radius, frame, target)
-        elif target == 'large valve': 
-            coef = 3025.7
-            pow = -0.617
-            radius = 5
-            valvesFinder(coef, pow, radius, frame, target)
-        elif target == "lever": 
-            coef = 1034.7
-            pow = -0.548
-            W = 1.6
-            L = 5.6
-            leverRect(W, L, frame, target)
-        elif target == "small switch":
-            coef = 1934.7
-            pow = -0.548
-            W = 7.8
-            L = 14
-            leverRect(W, L, frame, target)
-        elif target == "large switch":
-            coef = 1934.7
-            pow = -0.548
-            W = 10.0
-            L = 37.1
-            leverRect(W, L, frame, target)
-        else:
-            print("!!!Wrong Target!!!")
-            break
-
-        key = cv2.waitKey(1) & 0xFF
-        if key == ord("q"): break
 
     cap.release()
     cv2.destroyAllWindows()

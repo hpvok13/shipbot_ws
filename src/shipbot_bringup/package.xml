@@ -13,6 +13,17 @@
   <depend>std_msgs</depend>
   <!-- <depend>diagnostic_msgs</depend> -->
   <depend>sensor_msgs</depend>
+
+  <build_depend>rospy</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>move_base</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
   <!-- <depend>turtlebot3_msgs</depend> -->
   <exec_depend>shipbot_description</exec_depend>
   <exec_depend>shipbot_teleop</exec_depend>
