@@ -2,7 +2,7 @@
 
 import cv2
 import rospy
-from geometry_msgs.msg import Point
+from   geometry_msgs.msg import Point
 import matplotlib.pyplot as plt
 import numpy as np
 

@@ -15,14 +15,19 @@ class Mission:
         self.command = command
 
 def parser():
-    with open('./Desktop/mission_files/mission_file_5.txt') as f:
+    with open('/shipbot_ws/src/shipbot_bringup/nodes/mission_file_3.txt') as f:
         line = f.readlines()[0]
+
+    stationSet = set()
     
     missions = line.split(', ')
     mission_list = []
     for mission in missions[:-1]:
         inputs = mission.split(' ')
         station = inputs[0][0]
+        if station in stationSet:
+            continue
+        stationSet.add(station)
         device = inputs[0][1:]
         if device == 'V1':
             object = 'spigot'
@@ -38,18 +43,23 @@ def parser():
             command = inputs[2]
         mis = Mission(station, object, command)
         mission_list.append(mis)
-    mission_list.sort(key=lambda x: x.station, reverse=False)
+    mission_list.sort(key=lambda x: x.station, reverse=True)
     comptime = int(missions[-1])
     
     mission_list.append(comptime)
 
+    # for mission in mission_list[:-1]:
+    #     print("At Station: ", mission.station)
+    #     print("Work on Device: ", mission.device)
+    #     print("With command: ", mission.command, '\n')
+
     stationDict = {
-        'A':PoseXYT(0, 0, 0),
+        'A':PoseXYT(-0.53, -0.0158, 3.0),
         'B':PoseXYT(-0.53, 0.2842, 3.0),
         'C':PoseXYT(-0.53, 0.589, 3.0),
         'D':PoseXYT(-0.53, 0.8938, 3.0),
-        'E':PoseXYT(0, 0, 0),
-        'F':PoseXYT(-0.53, 0.95, 1.45),
+        'E':PoseXYT(-0.53, 0.95, 3.0),
+        'F':PoseXYT(-0.53, 0.95, 1.7),
         'G':PoseXYT(-0.3248, 0.95, 1.45),
         'H':PoseXYT(-0.02, 0.95, 1.45)
     }
@@ -58,8 +68,13 @@ def parser():
     for mission in mission_list[:-1]:
         device = mission.device
         state = mission.command
-        pose = stationDict[device]
+        pose = stationDict[mission.station]
         deviceGoals.append(DeviceGoal(device, state, pose))
+
+    # for deviceGoal in deviceGoals:
+    #     print("Device: ", deviceGoal.device)
+    #     print("Desired State: ", deviceGoal.state)
+    #     print("Pose: ", deviceGoal.pose)
 
     return deviceGoals
 
@@ -100,6 +115,9 @@ class DeviceManipulator:
         # z vertical actuator
         self.arm_pub = rospy.Publisher('cmd_arm', Point, queue_size = 1) 
 
+        time.sleep(1)
+        self.reset_actuators()
+
         # cmd_arm
         # x horizontal error
         # y vertical error
@@ -133,32 +151,153 @@ class DeviceManipulator:
         
 
     def manipulate(self, device, desired_state):
-        self.device = device
-        self.desired_state = desired_state
-
-        # self.prev_error_x = None
-
-        # self.sum_error_x = 0
-
-        # self.doneAlign = False
-
-        # rate = rospy.Rate(10)
-        # while not self.doneAlign:
-        #     rate.sleep()
-        
         point_arm = Point()
-        point_arm.x, point_arm.z = self.device_linear_actuator[device]
+        twist_mov = Twist()
+        twist_mov.linear.x = 0.0
+        twist_mov.linear.y = 0.0
+        twist_mov.angular.z = 0.0
+        point_arm.x = 30
+        point_arm.z = 30
+        self.base_pub.publish(twist_mov)
         self.arm_pub.publish(point_arm)
-        time.sleep(3)
+        time.sleep(1)
+        # if device == 'stopcock':
+        #     point_arm.z = 120
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(4)
+
+        #     if desired_state == 1: 
+        #         point_arm.y = 330
+        #     else:
+        #         point_arm.y = 80
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(2)
+
+        #     twist_mov.linear.x = 0.03
+        #     self.base_pub.publish(twist_mov)
+        #     time.sleep(5)
+
+        #     twist_mov.linear.x = 0.0
+        #     self.base_pub.publish(twist_mov)
+        #     time.sleep(2)
+
+        #     point_arm.x = 140
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(3)
+
+        #     point_arm.z = 70
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(2)
+
+        #     if desired_state == 1: 
+        #         point_arm.y = 100
+        #     else:
+        #         point_arm.y = 170
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(1)
+
+        #     point_arm.z = 120
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(3)
+
+        # elif device == 'rotary':
+        #     twist_mov.linear.x = 0.1
+        #     self.base_pub.publish(twist_mov)
+        #     time.sleep(1)
+
+        #     twist_mov.linear.x = 0.0
+        #     point_arm.x = 60
+        #     self.base_pub.publish(twist_mov)
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(2)
+
+        #     point_arm.y = desired_state
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(2)
+            
+        # elif device == 'spigot':
         if device == 'spigot' or device == 'rotary':
-            point_arm.y = self.state
+            self.set_actuators(140, 30)
+            time.sleep(1)
+
+            point_arm.x = 140
+            point_arm.y = 0
             self.arm_pub.publish(point_arm)
-            time.sleep(3)
+            time.sleep(2)
+
             point_arm.y = desired_state
             self.arm_pub.publish(point_arm)
-            time.sleep(3)
+            time.sleep(2)
+        elif device == 'stopcock':
+            self.set_actuators(140, 30)
+            time.sleep(1)
+
+            if desired_state == 1:
+                point_arm.x = 140
+                point_arm.y = 0
+                self.arm_pub.publish(point_arm)
+                time.sleep(2)
+
+                point_arm.y = 120
+                self.arm_pub.publish(point_arm)
+                time.sleep(2)
+            elif desired_state == 0:
+                point_arm.x = 140
+                point_arm.y = 120
+                self.arm_pub.publish(point_arm)
+                time.sleep(2)
+
+                point_arm.y = 0
+                self.arm_pub.publish(point_arm)
+                time.sleep(2)
+
+        self.reset_actuators()
+
+                # self.device = device
+        # self.desired_state = desired_state
+
+        # # self.prev_error_x = None
+
+        # # self.sum_error_x = 0
+
+        # # self.doneAlign = False
+
+        # # rate = rospy.Rate(10)
+        # # while not self.doneAlign:
+        # #     rate.sleep()
         
+        # point_arm = Point()
+        # point_arm.x, point_arm.z = self.device_linear_actuator[device]
+        # self.arm_pub.publish(point_arm)
+        # time.sleep(3)
+        # if device == 'spigot' or device == 'rotary':
+        #     point_arm.y = self.state
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(3)
+        #     point_arm.y = desired_state
+        #     self.arm_pub.publish(point_arm)
+        #     time.sleep(3)
         
+    def reset_actuators(self):
+        point_arm = Point()
+        twist_mov = Twist()
+        twist_mov.linear.x = 0.0
+        twist_mov.linear.y = 0.0
+        twist_mov.angular.z = 0.0
+        point_arm.x = 30.0
+        point_arm.z = 30.0
+        point_arm.y = 0.0
+        self.base_pub.publish(twist_mov)
+        self.arm_pub.publish(point_arm)
+        time.sleep(3)
+
+    def set_actuators(self, x, z):
+        point_arm = Point()
+        point_arm.x = x
+        point_arm.z = z
+        point_arm.y = 0.0
+        self.arm_pub.publish(point_arm)
+        time.sleep(3)
 
 def navigation_client(x, y , th):
     client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
@@ -258,8 +397,6 @@ def test():
         rospy.loginfo("Client Closed")
     rospy.loginfo("Navigation Finished")
 
-
-
 def main():
     try:
         rospy.init_node('shipbot_client')
@@ -267,17 +404,27 @@ def main():
         # Parse commands
         deviceGoals = parser()
         for deviceGoal in deviceGoals:
-                result = navigation_client(deviceGoal.x, deviceGoal.y, deviceGoal.th)
-                if result:
-                    rospy.loginfo("Goal execution done!")
-                    aligner.manipulate(deviceGoal.device)
-                else:
-                    rospy.loginfo("Goal execution not complete!")
-        
+            result = navigation_client(deviceGoal.pose.x, deviceGoal.pose.y, deviceGoal.pose.th)
+            if result:
+                rospy.loginfo("Goal execution done!")
+                aligner.manipulate(deviceGoal.device, deviceGoal.state)
+                time.sleep(1)
+                aligner.reset_actuators()
+            else:
+                rospy.loginfo("Goal execution not complete!")
+            
+            result = navigation_client(0, 0, 3.0)
+            if result:
+                rospy.loginfo("Goal execution done!")
+            else:
+                rospy.loginfo("Goal execution not complete!")
+            time.sleep(1)
+            aligner.reset_actuators()
+            time.sleep(1)
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Client Closed")
     rospy.loginfo("Navigation Finished")
 
 if __name__ == '__main__':
-    test()
+    main()
